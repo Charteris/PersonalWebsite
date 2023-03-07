@@ -1,0 +1,53 @@
+/** 
+ * Css style for background
+ */
+
+body {
+  --background-color: #17181B;
+  --border-color: #0E1013;
+  --text-color: #80868B;
+
+  font: 80% "Century Gothic", Futura, Helvetica, Arial, sans-serif;
+  color: var(--text-color);
+  background: #000000;
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+.background-video {
+  transform: scaleX(120%);
+
+  position: absolute;
+  float: center;
+  width: 100%;
+  height: 91%;
+  left: 0%;
+  top: 9vh;
+}
+
+.modal {
+  background: var(--background-color);
+  border-radius: 3vw;
+  border: 0.3vw solid var(--border-color);
+
+  position: absolute;
+  float: center;
+  width: 90vw;
+  height: 80vh;
+
+  left: 5vw;
+  top: 14vh;
+}
+
+.loading {
+  border-top: 0.2vw solid var(--text-color);
+  position: absolute;
+  float: center;
+  width: 30%;
+  left: 35%;
+  top: 30vh;
+
+  font-weight: bold;
+  font-size: 2vw;
+  border-bottom: 0.3vw solid var(--text-color);
+}

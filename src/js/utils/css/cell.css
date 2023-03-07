@@ -1,0 +1,88 @@
+/** 
+ * css style for cells - i.e. buttons, inputs, drop-downs, etc.
+ */
+
+:root {
+  --background-color: #17181B;
+  --cell-back-color: #202124;
+  --border-color: #0E1013;
+  --active-border-color: #4C4F51;
+  --text-color: #80868B;
+}
+
+.generic-object {
+  background: var(--cell-back-color);
+  border-radius: 0.8vw;
+  margin: 0.25%;
+
+  position: relative;
+  width: 8vw;
+  height: 4.5vh;
+}
+
+.button-object {
+  background: var(--cell-back-color);
+  border: 0.2vw solid var(--border-color);
+  border-radius: 0.8vw;
+  margin: 0.8%;
+  margin-bottom: 4%;
+
+  position: relative;
+  width: 12vw;
+  height: 7vh;
+
+  font-size: 1.2vw;
+  color: var(--text-color);
+}
+
+.button-left-arrow {
+  position: relative;
+  margin: 0.75vw;
+  background: transparent;
+	width: 2vw;
+  height: 2vw;
+
+	border: 0.6vw solid;
+	border-color: 
+    transparent
+		var(--active-border-color)
+		var(--active-border-color)
+		transparent;
+	transform: rotate(-45deg);
+}
+
+.button-right-arrow {
+  position: relative;
+  margin: 0.75vw;
+  background: transparent;
+	width: 2vw;
+  height: 2vw;
+
+	border: 0.6vw solid;
+	border-color: 
+    transparent
+		transparent
+		var(--active-border-color)
+		var(--active-border-color);
+	transform: rotate(45deg);
+}
+
+.input-object {
+  background: var(--cell-back-color);
+  border: 0.2vw solid var(--border-color);
+  border-radius: 0.5vw;
+  margin: 0.25%;
+
+  position: relative;
+  float: center;
+  height: 2vh;
+  color: var(--text-color);
+}
+
+.input-title {
+  position: relative;
+  float: center;
+  margin: 0.3%;
+  width: 10vw;
+  font-size: 1vw;
+}

@@ -1,0 +1,56 @@
+/** 
+ * css style for Navigator header strip
+ */
+
+body {
+  --background-color: #17181B;
+  --border-color: #0E1013;
+  --text-color: #80868B;
+  color: var(--text-color);
+
+  background-size: contain;
+  text-align: center;
+  margin: 0%;
+}
+
+.header-strip {
+  background: var(--background-color);
+  border-bottom: 0.5vh solid var(--border-color);
+  height: 8vh;
+  font-weight: bold;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 2vw;
+  margin: 0.5%;
+  
+  position: absolute;
+  float: left;
+  width: 20vw;
+  left: 15vw;
+
+  border-bottom: 0.3vh solid var(--text-color);
+}
+
+.subtitle {
+  font-weight: bold;
+  font-size: 1.5vw;
+  margin: 0.5%;
+  
+  position: absolute;
+  float: center;
+  width: 20vw;
+  left: 31vw;
+  top: 1vh;
+  }
+
+.buttons {
+  position: absolute;
+  width: 70vw;
+  height: 5vh;
+  float: right;
+  
+  left: 45vw;
+  top: -0.5vh;
+}

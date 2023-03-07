@@ -1,0 +1,40 @@
+/** 
+ * Defines the Css style for the resume
+ */
+
+body {
+  --background-color: #17181B;
+  --border-color: #0E1013;
+  --text-color: #80868B;
+  color: var(--text-color);
+}
+
+.grid {
+  position: absolute;
+  margin: 0%;
+  width: 50vw;
+  height: 30vh;
+  top: 4vh;
+  left: -5vw;
+}
+
+.grid-cell {
+  position: relative;
+}
+
+.rule-set {
+  position: relative;
+  float: left;
+  width: 28vw;
+  left: 1vw;
+  top: 10vh;
+
+  font-size: 1vw;
+}
+
+.sidebar {
+  position: relative;
+  width: 15vw;
+  top: 5vh;
+  left: 40vw;
+}
