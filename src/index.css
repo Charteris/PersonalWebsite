@@ -14,6 +14,12 @@ body {
   max-width: 100%;
 }
 
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
 .background-video {
   transform: scaleX(120%);
 
@@ -32,8 +38,8 @@ body {
 
   position: absolute;
   float: center;
-  width: 90vw;
-  height: 80vh;
+  width: 90%;
+  height: 100%;
 
   left: 5vw;
   top: 14vh;

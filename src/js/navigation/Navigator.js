@@ -35,7 +35,6 @@ class Navigator extends React.Component {
     return (
       <div className="header-strip">
         <div className="title">{this.props.title}</div>
-        <div className="subtitle">{'- ' + this.props.subtitle}</div>
         <div className="buttons">
           {this.props.buttons.map((cellInfo) => {
             return <Cell

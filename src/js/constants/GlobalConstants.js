@@ -6,7 +6,7 @@
  */
 
 const GlobalConstants = {
-  NAME: 'Pigish Entertainment',
+  NAME: 'Lachlan Charteris',
   DEFAULT_PAGE: 'PORTFOLIO',
   PAGE_TITLES: {
     PORTFOLIO: 'Portfolio',

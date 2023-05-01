@@ -97,15 +97,19 @@ class App extends React.Component {
     return (
       this.state.loaded ? 
       <div className="background">
-        <Navigator 
-          title={this.state.title}
-          subtitle={this.state.pageTitle}
-          buttons={this.state.buttons}
-        />
         <video className="background-video" autoPlay loop muted>
           <source src={BackgroundVideo} type='video/mp4' />
         </video>
+
         {this.getViewModal()}
+
+        <div className={window.pageYOffset >= 0 ? 'sticky' : ''}>
+          <Navigator 
+            title={this.state.title}
+            subtitle={this.state.pageTitle}
+            buttons={this.state.buttons}
+          />
+        </div>
       </div>
       : <div> Loading... </div>
     );

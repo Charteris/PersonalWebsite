@@ -25,7 +25,7 @@ const EntertainmentConstants = {
         {
           name: 'Maze Game', 
           key: mazeKey,
-          description: "Attempt to solve procedurally generated mazes, or sit back and watch as an artificial intelligence agent solves it for you. This explores many algorithms, including those which are iterative, hueristic, and even those which implement machine learning. It also demonstrates that these algorithms are not only powerful for automated solutions, but also for problem generation.",
+          description: "Attempt to solve procedurally generated mazes, or sit back and watch as an artificial intelligence agent solves it for you. This explores many algorithms, including those which are iterative, heuristic, and even those which implement machine learning. It also demonstrates that these algorithms are not only powerful for automated solutions, but also for problem generation.",
         },
       ]
     }, 

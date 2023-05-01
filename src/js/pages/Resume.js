@@ -9,7 +9,9 @@ import React from 'react';
 import ResumeConstants from '../constants/ResumeConstants';
 import withModal from '../hoc/withModal';
 
-import Photo from '../../res/CharterisLachlan.png';
+import CellConstants from '../constants/CellConstants';
+import Cell from '../utils/Cell';
+
 import './css/pagestyle.css';
 
 class Resume extends React.Component {
@@ -21,7 +23,8 @@ class Resume extends React.Component {
 
     this.state = {
       loaded: false,
-      title: ResumeConstants.TITLE,
+      titleIndex: 0,
+      title: ResumeConstants.TITLES[0],
     }
   }
 
@@ -32,34 +35,52 @@ class Resume extends React.Component {
     this.setState({ loaded: true });
   }
 
+  cycleSection(offset) {
+    let newIndex = (this.state.titleIndex + offset) % ResumeConstants.TITLES.length;
+    if (newIndex < 0) {
+      newIndex += ResumeConstants.TITLES.length;
+    }
+    
+    this.setState({ 
+      titleIndex: newIndex,
+      title: ResumeConstants.TITLES[newIndex],
+    });
+  }
+
   /**
    * @inheritdoc
    */
   render() {
     return (
       <>
+        <Cell 
+          cellType={CellConstants.BUTTONS.BACK} 
+          styleOverloads={{left: '-17.5%', top: '6.3vh'}} 
+          callback={this.cycleSection.bind(this, -1)}
+        />
         <div className="title-field">{this.state.title}</div>
-        <img className="image-field" src={Photo} alt="" />
-        {this.props.displayFields.map((field) => 
-          <div className="text-field">{`${field}: ${this.props[field.toLowerCase()]}`}</div>
+        <Cell 
+          cellType={CellConstants.BUTTONS.FORWARD}
+          styleOverloads={{left: '10%', top: '-6.3vh'}} 
+          callback={this.cycleSection.bind(this, 1)}
+        />
+
+        {ResumeConstants.ABOUT_ME.map((paragraph) => 
+          <div className="text-field">{paragraph}</div>
         )}
-        <div className = "description-field" style={{top: '58vh'}}>
-          {this.props.description}
-        </div>
+        <img className="image-field" src={ResumeConstants.PHOTO} alt="" />
+        {Object.entries(ResumeConstants.GENERAL_INFO).filter(
+          ([field,]) => !(field in this.props.displayFields)
+        ).map(([field, value]) => 
+          <div className="info-field">{`${field}: ${value}`}</div>
+        )}
       </>
     )
   }
 }
 
 Resume.defaultProps = {
-  name: ResumeConstants.NAME,
-  age: ResumeConstants.AGE,
-  profession: ResumeConstants.PROFESSION,
-  email: ResumeConstants.EMAIL,
-  phone: ResumeConstants.PHONE,
-  description: ResumeConstants.DESCRIPTION,
-  photo: ResumeConstants.PHOTO,
-  displayFields: ['Name', 'Age', 'Profession', 'Email', 'Phone'],
+  displayFields: Object.keys(ResumeConstants.GENERAL_INFO),
 }
 
 export { Resume };
