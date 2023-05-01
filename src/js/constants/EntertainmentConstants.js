@@ -20,7 +20,7 @@ const EntertainmentConstants = {
         {
           name: 'Game Of Life', 
           key: gameOfLifeKey,
-          description: "This is arguably a simulation of John Conway's 'Game Of Life', however, additional implementations are provided to change the neighbourhood applied during convolution, grid size, etc. It is also possible to toggle whether a cell is active, allowing you to explore the possible patterns, as seen through the wiki. There are also other automata's to explore such as Wire World.",
+          description: "This is a simulation of John Conway's 'Game Of Life', however, additional implementations are provided to change the neighbourhood applied during convolution, grid size, etc. It is also possible to toggle whether a cell is active, allowing you to explore the possible patterns, as seen through the wiki. There are also other automata's to explore such as Wire World.",
         },
         {
           name: 'Maze Game', 

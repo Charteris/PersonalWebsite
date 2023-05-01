@@ -13,6 +13,9 @@ import Photo from '../../res/CharterisLachlan.png';
 import './css/pagestyle.css';
 
 class Resume extends React.Component {
+  /**
+   * @inheritdoc
+   */
   constructor(props) {
     super(props);
 
@@ -22,10 +25,16 @@ class Resume extends React.Component {
     }
   }
 
+  /**
+   * @inheritdoc
+   */
   componentDidMount() {
     this.setState({ loaded: true });
   }
 
+  /**
+   * @inheritdoc
+   */
   render() {
     return (
       <>

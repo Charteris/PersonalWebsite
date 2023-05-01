@@ -57,6 +57,9 @@ function createEmptyCell(cellInfo, stateInfo) {
 }
 
 class Cell extends React.Component {
+  /**
+   * @inheritdoc
+   */
   constructor(props) {
     super(props);
 
@@ -72,6 +75,9 @@ class Cell extends React.Component {
     this.renderFunction = createEmptyCell;
   }
 
+  /**
+   * @inheritdoc
+   */
   componentDidMount() {
     const colorChanges = CellConstants.USER_FEEDBACK[this.props.cellType] ?? CellConstants.USER_FEEDBACK.DEFAULT;
     let newEventListeners = {
@@ -115,6 +121,9 @@ class Cell extends React.Component {
     this.setState({ overloads: newOverloads });
   }
 
+  /**
+   * @inheritdoc
+   */
   render() {
     return this.state.loaded
       ? this.renderFunction(this.props, this.state)

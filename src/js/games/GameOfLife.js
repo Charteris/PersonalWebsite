@@ -16,6 +16,9 @@ import Grid from './Grid';
 import './css/gamestyle.css';
 
 class GameOfLife extends React.Component {
+  /**
+   * @inheritdoc
+   */
   constructor(props) {
     super(props);
 
@@ -57,6 +60,9 @@ class GameOfLife extends React.Component {
     this.iterateAutomata = this.iterateAutomata.bind(this);
   }
 
+  /**
+   * @inheritdoc
+   */
   componentDidMount() {
     this.setState({ 
       loaded: true,
@@ -220,6 +226,9 @@ class GameOfLife extends React.Component {
     });
   }
 
+  /**
+   * @inheritdoc
+   */
   render() {
     const intervalButton = this.getIntervalButton();
 

@@ -11,6 +11,9 @@ import GameConstants from '../constants/GameConstants';
 import './css/gamestyle.css';
 
 class Grid extends React.Component {
+  /**
+   * @inheritdoc
+   */
   render() {
     return (
       <div className="grid" style={this.props.overloads}>

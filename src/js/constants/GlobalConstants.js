@@ -7,16 +7,20 @@
 
 const GlobalConstants = {
   NAME: 'Pigish Entertainment',
+  DEFAULT_PAGE: 'PORTFOLIO',
   PAGE_TITLES: {
     PORTFOLIO: 'Resume',
     ENTERTAINMENT: 'Entertainment',
-    COMMUNICATION: 'Communication',
+    // COMMUNICATION: 'Communication',
   },
   PAGE_IDS: {
     PORTFOLIO: 'resume',
     ENTERTAINMENT: 'entertainment',
-    COMMUNICATION: 'communication',
+    // COMMUNICATION: 'communication',
   }
 }
+
+GlobalConstants.DEFAULT_PAGE_TITLE = GlobalConstants.PAGE_TITLES[GlobalConstants.DEFAULT_PAGE];
+GlobalConstants.DEFAULT_PAGE_ID = GlobalConstants.PAGE_IDS[GlobalConstants.DEFAULT_PAGE];
 
 export default GlobalConstants;

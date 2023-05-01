@@ -18,47 +18,38 @@ import BackgroundVideo from './res/ContinuousLines.mp4';
 import './index.css';
 
 class App extends React.Component {
+  /**
+   * Initializes component
+   * @param {Object} props - The props passed to the component
+   */
   constructor(props) {
     super(props);
 
     this.state = {
       loaded: false,
       title: GlobalConstants.NAME,
-      currentPage: GlobalConstants.PAGE_IDS.ENTERTAINMENT,
-      pageTitle: GlobalConstants.PAGE_TITLES.ENTERTAINMENT,
+      currentPage: GlobalConstants.DEFAULT_PAGE_ID,
+      pageTitle: GlobalConstants.DEFAULT_PAGE_TITLE,
 
       // Provide button information and callbacks for the Navigator
-      buttons: [
-        { 
-          title: GlobalConstants.PAGE_TITLES.PORTFOLIO, 
+      buttons: Object.entries(GlobalConstants.PAGE_TITLES).map(([field, value]) => {
+        return { 
+          title: value, 
           callback: () => this.setState({ 
-            currentPage: GlobalConstants.PAGE_IDS.PORTFOLIO,
-            pageTitle: GlobalConstants.PAGE_TITLES.PORTFOLIO,
+            currentPage: GlobalConstants.PAGE_IDS[field],
+            pageTitle: value,
           }), 
-          type: CellConstants.BUTTONS.DEFAULT 
-        },
-        { 
-          title: GlobalConstants.PAGE_TITLES.ENTERTAINMENT, 
-          callback: () => this.setState({ 
-            currentPage: GlobalConstants.PAGE_IDS.ENTERTAINMENT,
-            pageTitle: GlobalConstants.PAGE_TITLES.ENTERTAINMENT,
-          }), 
-          type: CellConstants.BUTTONS.DEFAULT 
-        },
-        { 
-          title: GlobalConstants.PAGE_TITLES.COMMUNICATION, 
-          callback: () => this.setState({ 
-            currentPage: GlobalConstants.PAGE_IDS.COMMUNICATION,
-            pageTitle: GlobalConstants.PAGE_TITLES.COMMUNICATION,
-          }), 
-          type: CellConstants.BUTTONS.DEFAULT 
-        },
-      ],
+          type: CellConstants.BUTTONS.DEFAULT,
+        };
+      }),
     };
 
     this.getViewModal = this.getViewModal.bind(this);
   }
 
+  /**
+   * Completes component initialization upon mounting
+   */
   componentDidMount() {
     setTimeout(() => this.setState({ loaded: true }), 500);
   }
@@ -98,6 +89,10 @@ class App extends React.Component {
     };
   }
 
+  /**
+   * Renders the component
+   * @return {React.Component} The rendered component
+   */
   render() {
     return (
       this.state.loaded ? 

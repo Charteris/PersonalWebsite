@@ -10,6 +10,9 @@ import Cell from '../utils/Cell'
 import './css/navigator.css';
 
 class Navigator extends React.Component {
+  /**
+   * @inheritdoc
+   */
   constructor(props) {
     super(props);
 
@@ -18,10 +21,16 @@ class Navigator extends React.Component {
     };
   }
 
+  /**
+   * @inheritdoc
+   */
   componentDidMount() {
     this.setState({loaded: true});
   }
 
+  /**
+   * @inheritdoc
+   */
   render() {
     return (
       <div className="header-strip">

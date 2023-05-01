@@ -16,6 +16,9 @@ import EntertainmentConstants from '../constants/EntertainmentConstants';
 import './css/pagestyle.css';
 
 class Entertainment extends React.Component {
+  /**
+   * @inheritdoc
+   */
   constructor(props) {
     super(props);
 
@@ -30,6 +33,9 @@ class Entertainment extends React.Component {
     this.generateEntertainmentLists = this.generateEntertainmentLists.bind(this);
   }
 
+  /**
+   * @inheritdoc
+   */
   componentDidMount() {
     this.setState({ loaded: true });
   }
@@ -92,6 +98,9 @@ class Entertainment extends React.Component {
     </div>
   }
 
+  /**
+   * @inheritdoc
+   */
   render() {
     if (!this.state.loaded) {
       return (
