@@ -34,6 +34,7 @@ body {
   float: center;
   width: 20vw;
   left: 35%; /* modal has a width of 90% - 10% for title width */
+  top: 3vw;
 
   font-weight: bold;
   font-size: 2vw;
@@ -59,6 +60,16 @@ body {
   left: 78%;
   top: -45vh;
 
+  margin: 0.5%;
+  font-weight: bold;
+  font-size: 0.8vw;
+  text-align: left;
+}
+
+.hypertext {
+  position: relative;
+  float: center;
+  
   margin: 0.5%;
   font-weight: bold;
   font-size: 0.8vw;

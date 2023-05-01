@@ -25,6 +25,7 @@ class Resume extends React.Component {
       loaded: false,
       titleIndex: 0,
       title: ResumeConstants.TITLES[0],
+      sectionComponent: ResumeConstants.COMPONENTS[0],
     }
   }
 
@@ -44,6 +45,7 @@ class Resume extends React.Component {
     this.setState({ 
       titleIndex: newIndex,
       title: ResumeConstants.TITLES[newIndex],
+      sectionComponent: ResumeConstants.COMPONENTS[newIndex],
     });
   }
 
@@ -58,30 +60,20 @@ class Resume extends React.Component {
           styleOverloads={{left: '-17.5%', top: '6.3vh'}} 
           callback={this.cycleSection.bind(this, -1)}
         />
-        <div className="title-field">{this.state.title}</div>
+        <div className="title-field" style={{ top: '0' }}>{this.state.title}</div>
         <Cell 
           cellType={CellConstants.BUTTONS.FORWARD}
           styleOverloads={{left: '10%', top: '-6.3vh'}} 
           callback={this.cycleSection.bind(this, 1)}
         />
-
-        {ResumeConstants.ABOUT_ME.map((paragraph) => 
-          <div className="text-field">{paragraph}</div>
-        )}
-        <img className="image-field" src={ResumeConstants.PHOTO} alt="" />
-        {Object.entries(ResumeConstants.GENERAL_INFO).filter(
-          ([field,]) => !(field in this.props.displayFields)
-        ).map(([field, value]) => 
-          <div className="info-field">{`${field}: ${value}`}</div>
-        )}
+        {this.state.sectionComponent}
       </>
     )
   }
 }
 
 Resume.defaultProps = {
-  displayFields: Object.keys(ResumeConstants.GENERAL_INFO),
 }
 
 export { Resume };
-export default withModal(Resume);
+export default withModal(Resume, { height: '100%' });

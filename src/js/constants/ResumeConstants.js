@@ -6,9 +6,13 @@
  */
 
 import Photo from '../../res/CharterisLachlan.png';
+import ElevatorSketch from '../../res/ElevatorSketch.PNG';
+import ElevatorCircuit from '../../res/RoughCircuitDiagram.JPG';
+import RushHourUnsolved from '../../res/RushHourA.PNG';
+import RushHourSolved from '../../res/RushHourB.PNG';
 
 const ResumeConstants = {
-  TITLES: ['About Me', 'Elevator Project', 'Rush Hour'],
+  DEFAULT_TITLE: 'About Me',
 
   // General Information
   GENERAL_INFO: {
@@ -16,9 +20,11 @@ const ResumeConstants = {
     Age: 21,
     Profession: 'Software Engineer',
     Email: 'charterislachlan@gmail.com',
+    Mobile: '0460531333',
+  },
+  SOCIALS: {
     Github: 'https://github.com/Charteris',
     LinkedIn: 'https://www.linkedin.com/in/lachlan-charteris-s5143364/',
-    Mobile: '0460531333',
   },
 
   // About Me Section
@@ -31,12 +37,69 @@ const ResumeConstants = {
     `For the most part, I am my happiest when I can progress my knowledge and hone my skills on challenging, real-world problems. Seeing impactful projects that I have had the privilege to work on come into fruition has always provided me with joy. Despite this, my ambitions going forward remain relatively simple. Ultimately, I mostly long to provide ease-of-life to all. Whether that be directly through targeted applications which simplify workflows, or adversely through development of efficient algorithms which provide more effective feedback and situational awareness within a particular field. All-in-all, I really just want to help.`,
   ],
 
-  ARTEFACTS: [
-    {
-      URL: 'https://github.com/Charteris/RushHour',
-      REFLECTION: '',
+  ARTEFACTS: {
+    Elevator: {
+      Title: 'Elevator Project',
+      Description: '',
+      Reflection: '',
+      Images: [ ElevatorSketch, ElevatorCircuit ],
     },
-  ],
+    RushHour: {
+      Title: 'Rush Hour',
+      Description: '',
+      Reflection: '',
+      Link: 'https://github.com/Charteris/RushHour',
+      Images: [ RushHourUnsolved, RushHourSolved ],
+    },
+  },
 }
+
+ResumeConstants.TITLES = [ResumeConstants.DEFAULT_TITLE].concat(
+  Object.values(ResumeConstants.ARTEFACTS).map((artefact) => artefact.Title)
+);
+
+ResumeConstants.COMPONENTS = [
+  <>
+    {ResumeConstants.ABOUT_ME.map((paragraph) => 
+      <div className="text-field">{paragraph}</div>
+    )}
+    <img className="image-field" src={ResumeConstants.PHOTO} alt="" />
+    {Object.entries(ResumeConstants.GENERAL_INFO).map(([field, value]) => 
+      <div className="info-field">{`${field}: ${value}`}</div>
+    )}
+    {Object.entries(ResumeConstants.SOCIALS).map(([field, value]) => 
+      <a className="hypertext" href={value} rel="noreferrer" style={
+        { left: '35%', top: '-42vh' }
+      }>
+        {field}
+      </a>
+    )}
+  </>,
+
+  <>
+    <img className="image-field" alt="" src={ResumeConstants.ARTEFACTS.Elevator.Images[0]}
+      style={{ left: '0', top: '-5vh', borderRadius: '1vw' }}
+    />
+    <div className="text-field">{ResumeConstants.ARTEFACTS.Elevator.Description}</div>
+    <div className="text-field">{ResumeConstants.ARTEFACTS.Elevator.Reflection}</div>
+    <img className="image-field" alt="" src={ResumeConstants.ARTEFACTS.Elevator.Images[1]}
+      style={{ left: '0', top: '50vh', borderRadius: '1vw' }}
+    />
+  </>,
+  
+  <>
+    <img className="image-field" alt="" src={ResumeConstants.ARTEFACTS.RushHour.Images[0]}
+      style={{ left: '-10%', top: '32vh', borderRadius: '1vw' }}
+    />
+    <div className="text-field">{ResumeConstants.ARTEFACTS.RushHour.Description}</div>
+    <div className="text-field">{ResumeConstants.ARTEFACTS.RushHour.Reflection}</div>
+    <a className="info-field" href={ResumeConstants.ARTEFACTS.RushHour.Link} rel="noreferrer">
+      Source Code
+    </a>
+    <img className="image-field" alt="" src={ResumeConstants.ARTEFACTS.RushHour.Images[1]}
+      style={{ left: '35%', top: '32vh', borderRadius: '1vw' }}
+    />
+  </>,
+]
 
 export default ResumeConstants;
