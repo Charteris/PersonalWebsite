@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/PersonalWebsite/static/css/main.52b9e5dd.css",
+    "main.js": "/PersonalWebsite/static/js/main.afa56c9d.js",
+    "static/media/ContinuousLines.mp4": "/PersonalWebsite/static/media/ContinuousLines.901a30726be1a1d482b8.mp4",
+    "static/media/CharterisLachlan.png": "/PersonalWebsite/static/media/CharterisLachlan.1051bcc9587706e6b6b9.png",
+    "index.html": "/PersonalWebsite/index.html",
+    "main.52b9e5dd.css.map": "/PersonalWebsite/static/css/main.52b9e5dd.css.map",
+    "main.afa56c9d.js.map": "/PersonalWebsite/static/js/main.afa56c9d.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.52b9e5dd.css",
+    "static/js/main.afa56c9d.js"
+  ]
+}
