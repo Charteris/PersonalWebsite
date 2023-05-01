@@ -27,7 +27,7 @@ body {
 
 .modal {
   background: var(--background-color);
-  border-radius: 3vw;
+  border-radius: 1vw;
   border: 0.3vw solid var(--border-color);
 
   position: absolute;

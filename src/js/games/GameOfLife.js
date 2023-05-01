@@ -285,16 +285,16 @@ class GameOfLife extends React.Component {
             </div>
             <Cell 
               cellType={CellConstants.BUTTONS.BACK} 
-              overloads={{left: '-8.5vw', top: '3.5vh'}} 
+              styleOverloads={{left: '-8.5vw', top: '3.5vh'}} 
               callback={this.iterateNeighbourhood.bind(this, -1)}
             />
             <Grid 
               matrix={this.state.neighbourhood.kernel}
-              overloads={{left: '-17.5vw', top: '4vh'}}
+              overloads={{ left: '-17.5vw', top: '4vh'}}
             />
             <Cell 
               cellType={CellConstants.BUTTONS.FORWARD}
-              overloads={{left: '3.5vw', top: '-3.5vh'}} 
+              styleOverloads={{left: '3.5vw', top: '-3.5vh'}} 
               callback={this.iterateNeighbourhood.bind(this, 1)}
             />
           </div>

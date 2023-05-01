@@ -6,7 +6,7 @@
  */
 
 const ResumeConstants = {
-  TITLE: 'Resume',
+  TITLE: 'Portfolio',
 
   NAME: 'Lachlan Charteris',
   AGE: 21,

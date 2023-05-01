@@ -80,11 +80,11 @@ class Entertainment extends React.Component {
                 cellType={CellConstants.BUTTONS.DEFAULT}
                 title={subField.name}
                 callback={() => this.setState({ entertainmentPage: subField.key })}
-                onMounting={{
-                  mouseenter: () => this.setState({ description: subField.description }),
-                  mouseleave: () => this.setState({ description: EntertainmentConstants.DEFAULT_DESCRIPTION }),
+                overloads={{
+                  onMouseEnter: () => this.setState({ description: subField.description }),
+                  onMouseLeave: () => this.setState({ description: EntertainmentConstants.DEFAULT_DESCRIPTION }),
                 }}
-                overloads={{id: subField.key}}
+                styleOverloads={{id: subField.key}}
               />
             </div>
           )}

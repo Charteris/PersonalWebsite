@@ -9,12 +9,12 @@ const GlobalConstants = {
   NAME: 'Pigish Entertainment',
   DEFAULT_PAGE: 'PORTFOLIO',
   PAGE_TITLES: {
-    PORTFOLIO: 'Resume',
+    PORTFOLIO: 'Portfolio',
     ENTERTAINMENT: 'Entertainment',
     // COMMUNICATION: 'Communication',
   },
   PAGE_IDS: {
-    PORTFOLIO: 'resume',
+    PORTFOLIO: 'portfolio',
     ENTERTAINMENT: 'entertainment',
     // COMMUNICATION: 'communication',
   }

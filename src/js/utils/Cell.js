@@ -12,14 +12,12 @@ import './css/cell.css';
 /**
  * Returns a new button object with the relevant information
  * @param {Object} cellInfo - relevant display and callback information for the button 
- * @param {Object} stateInfo - relevant CSS style state info for the particular button
  * @returns {React.Element}
  */
-function createButton(cellInfo, stateInfo) {
+function createButton(cellInfo) {
   return (
-    <button className={cellInfo.cellType} style={stateInfo.overloads}
-      onMouseEnter={stateInfo.eventListeners.mouseenter} onMouseLeave={stateInfo.eventListeners.mouseleave} 
-      onMouseDown={stateInfo.eventListeners.mousedown} onMouseUp={stateInfo.eventListeners.mouseup}  
+    <button className={cellInfo.cellType} onMouseUp={cellInfo.callback} 
+      style={cellInfo.styleOverloads} {...cellInfo.overloads} 
     >
       {cellInfo.title}
     </button>
@@ -28,15 +26,14 @@ function createButton(cellInfo, stateInfo) {
 
 /**
  * Returns a new input object with the relevant information
- * @param {Object} cellInfo - relevant display and callback information for the input 
- * @param {Object} stateInfo - relevant CSS style state info for the particular input
+ * @param {Object} cellInfo - relevant display and callback information for the input
  * @returns {React.Element}
  */
-function createInput(cellInfo, stateInfo) {
+function createInput(cellInfo) {
   return <div>
     <div className="input-title">{cellInfo.title}</div>
-    <input className={cellInfo.cellType} onKeyDown={stateInfo.callback} style={stateInfo.overloads}
-      onMouseEnter={stateInfo.eventListeners.mouseenter} onMouseLeave={stateInfo.eventListeners.mouseleave} 
+    <input className={cellInfo.cellType} onKeyDown={cellInfo.callback} 
+      style={cellInfo.styleOverloads} {...cellInfo.overloads} 
     >
     </input>
   </div>;
@@ -45,12 +42,13 @@ function createInput(cellInfo, stateInfo) {
 /**
  * Returns a new empty div object with the relevant class style
  * @param {Object} cellInfo - relevant class style information
- * @param {Object} stateInfo - relevant CSS style stateInfo for the particular empty cell
  * @returns {React.Element}
  */
-function createEmptyCell(cellInfo, stateInfo) {
+function createEmptyCell(cellInfo) {
   return (
-    <div className={cellInfo.cellType} onChange={stateInfo.callback} style={stateInfo.overloads}>
+    <div className={cellInfo.cellType} onChange={cellInfo.callback} 
+      style={cellInfo.styleOverloads} {...cellInfo.overloads} 
+    >
       Empty Cell
     </div>
   );
@@ -62,16 +60,7 @@ class Cell extends React.Component {
    */
   constructor(props) {
     super(props);
-
-    this.state = {
-      loaded: false,
-
-      // overloads must be adapted through state via event listeners
-      overloads: this.props.overloads,
-      callback: this.props.callback,
-      eventListeners: {},
-    }
-
+    this.state = { loaded: false }
     this.renderFunction = createEmptyCell;
   }
 
@@ -79,55 +68,21 @@ class Cell extends React.Component {
    * @inheritdoc
    */
   componentDidMount() {
-    const colorChanges = CellConstants.USER_FEEDBACK[this.props.cellType] ?? CellConstants.USER_FEEDBACK.DEFAULT;
-    let newEventListeners = {
-      mouseenter: () => {
-        this.changeColor(colorChanges?.mouseenter ?? {});
-        this.props.onMounting?.mouseenter();
-      },
-      mouseleave: () => {
-        this.changeColor(colorChanges?.mouseleave ?? {});
-        this.props.onMounting?.mouseleave();
-      },
-    };
-
     // Set appropriate render function
     if (Object.values(CellConstants.BUTTONS).includes(this.props.cellType)) {
       this.renderFunction = createButton;
-
-      // Initialise event listeners for buttons
-      newEventListeners.mousedown = () => this.changeColor(colorChanges?.mousedown ?? {});
-      newEventListeners.mouseup = () => {
-        this.changeColor(colorChanges?.mouseup ?? {});
-        this.props.callback();
-      };
-
     } else if (Object.values(CellConstants.INPUTS).includes(this.props.cellType)) {
       this.renderFunction = createInput;
     }
 
-    this.setState({ loaded: true, eventListeners: newEventListeners });
-  }
-
-  /**
-   * Assigns new colors to the particular cell object on particular mouse events
-   * @param {Object} newColors - A map of new stateInfo (background / border colors) to be assigned
-   */
-  changeColor(newColors) {
-    const newOverloads = Object.assign(
-      {...this.state.overloads}, 
-      newColors
-    );
-    this.setState({ overloads: newOverloads });
+    this.setState({ loaded: true });
   }
 
   /**
    * @inheritdoc
    */
   render() {
-    return this.state.loaded
-      ? this.renderFunction(this.props, this.state)
-      : this.renderFunction(CellConstants.DEFAULT, {});
+    return this.renderFunction(this.state.loaded ? this.props : CellConstants.DEFAULT, this.state.eventListeners)
   }
 }
 
@@ -136,6 +91,7 @@ Cell.defaultProps = {
   title: '',
   callback: () => {},
   stateInfo: {},
+  mountingProps: {},
 }
 
 export default Cell;

@@ -23,7 +23,7 @@
 .button-object {
   background: var(--cell-back-color);
   border: 0.2vw solid var(--border-color);
-  border-radius: 0.8vw;
+  border-radius: 0.4vw;
   margin: 0.8%;
   margin-bottom: 4%;
 
@@ -33,6 +33,14 @@
 
   font-size: 1.2vw;
   color: var(--text-color);
+}
+
+.button-object:hover {
+  border-color: var(--active-border-color);
+}
+
+.button-object:active {
+  background: var(--border-color);
 }
 
 .button-left-arrow {
@@ -51,6 +59,16 @@
 	transform: rotate(-45deg);
 }
 
+.button-left-arrow:hover {
+  border-right-color: var(--text-color);
+  border-bottom-color: var(--text-color);
+}
+
+.button-left-arrow:active {
+  border-right-color: var(--cell-back-color);
+  border-bottom-color: var(--cell-back-color);
+}
+
 .button-right-arrow {
   position: relative;
   margin: 0.75vw;
@@ -67,6 +85,16 @@
 	transform: rotate(45deg);
 }
 
+.button-right-arrow:hover {
+  border-left-color: var(--text-color);
+  border-bottom-color: var(--text-color);
+}
+
+.button-right-arrow:active {
+  border-left-color: var(--border-color);
+  border-bottom-color: var(--border-color);
+}
+
 .input-object {
   background: var(--cell-back-color);
   border: 0.2vw solid var(--border-color);
@@ -77,6 +105,10 @@
   float: center;
   height: 2vh;
   color: var(--text-color);
+}
+
+.input-object:hover {
+  border-color: var(--active-border-color);
 }
 
 .input-title {
