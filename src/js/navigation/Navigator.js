@@ -33,9 +33,9 @@ class Navigator extends React.Component {
    */
   render() {
     return (
-      <div className="header-strip">
+      <div className={`header-strip sticky`}>
         <div className="title">{this.props.title}</div>
-        <div className="buttons">
+        <div className="buttons sticky">
           {this.props.buttons.map((cellInfo) => {
             return <Cell
               cellType={cellInfo.type}

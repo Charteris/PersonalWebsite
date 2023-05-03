@@ -39,7 +39,7 @@ class App extends React.Component {
             currentPage: GlobalConstants.PAGE_IDS[field],
             pageTitle: value,
           }), 
-          type: CellConstants.BUTTONS.DEFAULT,
+          type: CellConstants.BUTTONS.HEADER,
         };
       }),
     };
@@ -51,7 +51,7 @@ class App extends React.Component {
    * Completes component initialization upon mounting
    */
   componentDidMount() {
-    setTimeout(() => this.setState({ loaded: true }), 500);
+    this.setState({ loaded: true });
   }
 
   /**
@@ -71,19 +71,15 @@ class App extends React.Component {
       case GlobalConstants.PAGE_IDS.PORTFOLIO:
         return ( <Resume /> );
       case GlobalConstants.PAGE_IDS.ENTERTAINMENT:
-        return ( <Entertainment 
-          setSubtitle={this.setSubtitle}
-        /> );
+        return ( <Entertainment setSubtitle={this.setSubtitle} /> );
       // case GlobalConstants.PAGE_IDS.COMMUNICATION:
         // return (
 
         // );
       default:
         return (
-          <div className="modal">
-            <div className="loading">
-              Page Currently Unavailable
-            </div>
+          <div className="modal loading">
+            Page Currently Unavailable
           </div>
         );
     };
@@ -97,19 +93,16 @@ class App extends React.Component {
     return (
       this.state.loaded ? 
       <div className="background">
+        <script src="https://unpkg.com/feather-icons"></script>
         <video className="background-video" autoPlay loop muted>
           <source src={BackgroundVideo} type='video/mp4' />
         </video>
-
         {this.getViewModal()}
-
-        <div className={window.pageYOffset >= 0 ? 'sticky' : ''}>
-          <Navigator 
-            title={this.state.title}
-            subtitle={this.state.pageTitle}
-            buttons={this.state.buttons}
-          />
-        </div>
+        <Navigator 
+          title={this.state.title}
+          subtitle={this.state.pageTitle}
+          buttons={this.state.buttons}
+        />
       </div>
       : <div> Loading... </div>
     );

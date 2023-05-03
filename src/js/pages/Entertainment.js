@@ -6,6 +6,7 @@
  */
 
 import React from 'react';
+import feather from 'feather-icons';
 
 import GameOfLife from '../games/GameOfLife';
 import Cell from '../utils/Cell';
@@ -51,6 +52,12 @@ class Entertainment extends React.Component {
       default:
         return (
           <div className="modal">
+            <div className="home-button">
+              <Cell 
+                cellType={CellConstants.BUTTONS.BACK}
+                callback={() => this.setState({ entertainmentPage: null, description: EntertainmentConstants.DEFAULT_DESCRIPTION })}
+              />
+            </div>
             <div className="loading">
               Entertainment Modal Incomplete
             </div>
@@ -64,34 +71,30 @@ class Entertainment extends React.Component {
    * @returns {React.Element}
    */
   generateEntertainmentLists() {
-    const vw = Math.max(document.documentElement.clientWidth ?? 0, window.innerWidth ?? 0);
-    const modalWidth = (vw - vw * 0.1) / this.state.fields.length;
-    const margin = vw * 0.025;
-
-    const shift = (index) => (modalWidth + margin)  * index + margin;
-
-    return <div>
-      {this.state.fields.map((field, index) => 
-        <div className="modal" style={{width: modalWidth, height: '60vh', left: shift(index), top: '12vh'}}>
-          <div className="title-field" style={{left: '17%'}}>{field.title}</div>
-          {field.objects.map((subField) => 
-            <div className="button-field" style={{margin: '2%'}}>
-              <Cell
-                cellType={CellConstants.BUTTONS.DEFAULT}
-                title={subField.name}
-                callback={() => this.setState({ entertainmentPage: subField.key })}
-                overloads={{
-                  onMouseEnter: () => this.setState({ description: subField.description }),
-                  onMouseLeave: () => this.setState({ description: EntertainmentConstants.DEFAULT_DESCRIPTION }),
-                }}
-                styleOverloads={{id: subField.key}}
-              />
-            </div>
-          )}
-        </div>
-      )}
-      <div className="modal" style={{height: '20vh', top: '75vh'}}>
-        <div className="description-field" style={{top: '3vh'}}>
+    return <div className="modal-shell-vertical">
+      <div className="modal-shell-horizontal">
+        {this.state.fields.map((field, index) => 
+          <div className="modal-vertical">
+            <div className="title-field">{field.title}</div>
+              <div className="button-field">
+                {field.objects.map((subField) => 
+                  <Cell
+                    cellType={CellConstants.BUTTONS.DEFAULT}
+                    title={subField.name}
+                    callback={() => this.setState({ entertainmentPage: subField.key })}
+                    overloads={{
+                      onMouseEnter: () => this.setState({ description: subField.description }),
+                      onMouseLeave: () => this.setState({ description: EntertainmentConstants.DEFAULT_DESCRIPTION }),
+                    }}
+                    styleOverloads={{id: subField.key}}
+                  />
+                )}
+              </div>
+          </div>
+        )}
+      </div>
+      <div className="modal-horizontal">
+        <div className="description-field">
           {this.state.description}
         </div>
       </div>
@@ -104,24 +107,16 @@ class Entertainment extends React.Component {
   render() {
     if (!this.state.loaded) {
       return (
-        <div className="modal">
-          <div className="loading">Loading Modal...</div>
+        <div className="modal loading">
+          Loading Modal...
         </div>
       );
     }
 
     return (
       this.state.entertainmentPage === null ?
-        this.generateEntertainmentLists() 
-        : <div>
-            {this.getEntertainmentModal()}
-            <div className="back-button">
-              <Cell 
-                cellType={CellConstants.BUTTONS.BACK}
-                callback={() => this.setState({ entertainmentPage: null, description: EntertainmentConstants.DEFAULT_DESCRIPTION })}
-              />
-            </div>
-        </div>
+        this.generateEntertainmentLists() : 
+        this.getEntertainmentModal()
     )
   }
 }

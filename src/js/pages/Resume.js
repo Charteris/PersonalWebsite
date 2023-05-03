@@ -7,7 +7,7 @@
 
 import React from 'react';
 import ResumeConstants from '../constants/ResumeConstants';
-import withModal from '../hoc/withModal';
+import feather from 'feather-icons';
 
 import CellConstants from '../constants/CellConstants';
 import Cell from '../utils/Cell';
@@ -53,21 +53,22 @@ class Resume extends React.Component {
    * @inheritdoc
    */
   render() {
+    feather.replace();
     return (
-      <>
-        <Cell 
-          cellType={CellConstants.BUTTONS.BACK} 
-          styleOverloads={{left: '-17.5%', top: '6.3vh'}} 
-          callback={this.cycleSection.bind(this, -1)}
-        />
-        <div className="title-field" style={{ top: '0' }}>{this.state.title}</div>
-        <Cell 
-          cellType={CellConstants.BUTTONS.FORWARD}
-          styleOverloads={{left: '10%', top: '-6.3vh'}} 
-          callback={this.cycleSection.bind(this, 1)}
-        />
+      <div className="modal">
+        <div className="title-section">
+          <Cell 
+            cellType={CellConstants.BUTTONS.BACK} 
+            callback={this.cycleSection.bind(this, -1)}
+          />
+          <div className="title-field">{this.state.title}</div>
+          <Cell 
+            cellType={CellConstants.BUTTONS.FORWARD}
+            callback={this.cycleSection.bind(this, 1)}
+          />
+        </div>
         {this.state.sectionComponent}
-      </>
+      </div>
     )
   }
 }
@@ -76,4 +77,4 @@ Resume.defaultProps = {
 }
 
 export { Resume };
-export default withModal(Resume, { height: '100%' });
+export default Resume;

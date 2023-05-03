@@ -11,12 +11,12 @@ const GlobalConstants = {
   PAGE_TITLES: {
     PORTFOLIO: 'Portfolio',
     ENTERTAINMENT: 'Entertainment',
-    // COMMUNICATION: 'Communication',
+    COMMUNICATION: 'Communication',
   },
   PAGE_IDS: {
     PORTFOLIO: 'portfolio',
     ENTERTAINMENT: 'entertainment',
-    // COMMUNICATION: 'communication',
+    COMMUNICATION: 'communication',
   }
 }
 

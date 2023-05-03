@@ -13,6 +13,7 @@ const CellConstants = {
     DEFAULT: 'button-object',
     FORWARD: 'button-left-arrow',
     BACK: 'button-right-arrow',
+    HEADER: 'button-header',
   },
 
   INPUTS: {

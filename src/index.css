@@ -2,6 +2,16 @@
  * Css style for background
  */
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+}
+
 body {
   --background-color: #17181B;
   --border-color: #0E1013;
@@ -11,49 +21,77 @@ body {
   color: var(--text-color);
   background: #000000;
   overflow-x: hidden;
-  max-width: 100%;
+  min-height: 100%;
+  min-width: 100%;
+  display: flex;
 }
 
-.sticky {
-  position: fixed;
-  top: 0;
-  width: 100%;
+:root {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.background {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .background-video {
-  transform: scaleX(120%);
-
-  position: absolute;
-  float: center;
-  width: 100%;
-  height: 91%;
-  left: 0%;
-  top: 9vh;
+  flex-grow: 1;
+  min-height: 100%;
+  max-width: 100%;
+  z-index: 0;
 }
 
 .modal {
-  background: var(--background-color);
-  border-radius: 1vw;
-  border: 0.3vw solid var(--border-color);
-
   position: absolute;
   float: center;
-  width: 90%;
-  height: 80vh;
+  background: var(--background-color);
+  border: 0.3vw solid var(--border-color);
+  border-radius: 1vw;
+  width: 95%;
+  min-height: 80%;
+  top: 10%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
 
-  left: 5vw;
-  top: 14vh;
+.modal-shell-vertical {
+  position: absolute;
+  width: 100%;
+  height: 90%;
+  padding: 1rem;
+  top: 8%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-shell-horizontal {
+  width: 100%;
+  height: 70%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 .loading {
-  border-top: 0.2vw solid var(--text-color);
-  position: absolute;
-  float: center;
-  width: 30%;
-  left: 35%;
-  top: 30vh;
-
+  flex-grow: 1;
   font-weight: bold;
+  text-decoration: underline overline;
   font-size: 2vw;
-  border-bottom: 0.3vw solid var(--text-color);
+  max-height: 90vh;
+  float: center;
+  position: absolute;
+  top: 50% - 1vw;
+  z-index: 2;
 }

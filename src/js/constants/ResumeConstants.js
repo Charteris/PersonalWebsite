@@ -22,9 +22,11 @@ const ResumeConstants = {
     Email: 'charterislachlan@gmail.com',
     Mobile: '0460531333',
   },
+
+  // Links - keys correlate to feather-icons
   SOCIALS: {
-    Github: 'https://github.com/Charteris',
-    LinkedIn: 'https://www.linkedin.com/in/lachlan-charteris-s5143364/',
+    github: 'https://github.com/Charteris',
+    linkedin: 'https://www.linkedin.com/in/lachlan-charteris-s5143364/',
   },
 
   // About Me Section
@@ -58,48 +60,52 @@ ResumeConstants.TITLES = [ResumeConstants.DEFAULT_TITLE].concat(
   Object.values(ResumeConstants.ARTEFACTS).map((artefact) => artefact.Title)
 );
 
+// JSX Components predefined for efficiency
 ResumeConstants.COMPONENTS = [
-  <>
-    {ResumeConstants.ABOUT_ME.map((paragraph) => 
-      <div className="text-field">{paragraph}</div>
-    )}
-    <img className="image-field" src={ResumeConstants.PHOTO} alt="" />
-    {Object.entries(ResumeConstants.GENERAL_INFO).map(([field, value]) => 
-      <div className="info-field">{`${field}: ${value}`}</div>
-    )}
-    {Object.entries(ResumeConstants.SOCIALS).map(([field, value]) => 
-      <a className="hypertext" href={value} rel="noreferrer" style={
-        { left: '35%', top: '-42vh' }
-      }>
-        {field}
-      </a>
-    )}
-  </>,
+  /** About Me Section */
+  <div className="main-section">
+    <div className="text-section">
+      {ResumeConstants.ABOUT_ME.map((paragraph) => 
+        <div className="text-field">{paragraph}</div>
+      )}
+    </div>
+    <div className="info-section">
+      <img className="image-field" src={ResumeConstants.PHOTO} alt="" />
+      <div className="general-info-section">
+        {Object.entries(ResumeConstants.GENERAL_INFO).map(([field, value]) => 
+          <div className="info-field">{`${field}: ${value}`}</div>
+        )}
+      </div>
+      <div className="links">
+        {Object.entries(ResumeConstants.SOCIALS).map(([field, link]) => 
+          <a className="link" href={link} rel="noreferrer">
+            <i data-feather={field}></i>
+          </a>
+        )}
+      </div>
+    </div>
+  </div>,
 
-  <>
-    <img className="image-field" alt="" src={ResumeConstants.ARTEFACTS.Elevator.Images[0]}
-      style={{ left: '0', top: '-5vh', borderRadius: '1vw' }}
-    />
+  /** Elevator Design Project */
+  <div className="main-section">
+    <div className="info-section">
+      <img className="image-field" alt="" src={ResumeConstants.ARTEFACTS.Elevator.Images[0]} />
+      <img className="image-field" alt="" src={ResumeConstants.ARTEFACTS.Elevator.Images[1]} />
+    </div>
     <div className="text-field">{ResumeConstants.ARTEFACTS.Elevator.Description}</div>
     <div className="text-field">{ResumeConstants.ARTEFACTS.Elevator.Reflection}</div>
-    <img className="image-field" alt="" src={ResumeConstants.ARTEFACTS.Elevator.Images[1]}
-      style={{ left: '0', top: '50vh', borderRadius: '1vw' }}
-    />
-  </>,
-  
-  <>
-    <img className="image-field" alt="" src={ResumeConstants.ARTEFACTS.RushHour.Images[0]}
-      style={{ left: '-10%', top: '32vh', borderRadius: '1vw' }}
-    />
+  </div>,
+
+  /** Rush Hour AI Project */
+  <div className="main-section">
     <div className="text-field">{ResumeConstants.ARTEFACTS.RushHour.Description}</div>
     <div className="text-field">{ResumeConstants.ARTEFACTS.RushHour.Reflection}</div>
-    <a className="info-field" href={ResumeConstants.ARTEFACTS.RushHour.Link} rel="noreferrer">
-      Source Code
+    <a className="link" href={ResumeConstants.ARTEFACTS.RushHour.Link} rel="noreferrer">
+      <i data-feather="github"></i>
     </a>
-    <img className="image-field" alt="" src={ResumeConstants.ARTEFACTS.RushHour.Images[1]}
-      style={{ left: '35%', top: '32vh', borderRadius: '1vw' }}
-    />
-  </>,
+    <img className="image-field" alt="" src={ResumeConstants.ARTEFACTS.RushHour.Images[0]} />
+    <img className="image-field" alt="" src={ResumeConstants.ARTEFACTS.RushHour.Images[1]} />
+  </div>,
 ]
 
 export default ResumeConstants;
