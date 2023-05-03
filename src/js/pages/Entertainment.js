@@ -6,7 +6,6 @@
  */
 
 import React from 'react';
-import feather from 'feather-icons';
 
 import GameOfLife from '../games/GameOfLife';
 import Cell from '../utils/Cell';
@@ -28,6 +27,13 @@ class Entertainment extends React.Component {
       fields: EntertainmentConstants.ENTERTAINMENT_LIST,
       entertainmentPage: null,
       description: EntertainmentConstants.DEFAULT_DESCRIPTION,
+      homeButton: (style = {}) =>
+        <div className="home-button" style={style}>
+          <Cell 
+            cellType={CellConstants.BUTTONS.BACK}
+            callback={() => this.setState({ entertainmentPage: null, description: EntertainmentConstants.DEFAULT_DESCRIPTION })}
+          />
+        </div>,
     }
 
     this.getEntertainmentModal = this.getEntertainmentModal.bind(this);
@@ -48,16 +54,11 @@ class Entertainment extends React.Component {
   getEntertainmentModal() {
     switch (this.state.entertainmentPage) {
       case EntertainmentConstants.PAGE_IDS.GAME_OF_LIFE:
-        return <GameOfLife />;
+        return <GameOfLife homeButton={this.state.homeButton} />;
       default:
         return (
           <div className="modal">
-            <div className="home-button">
-              <Cell 
-                cellType={CellConstants.BUTTONS.BACK}
-                callback={() => this.setState({ entertainmentPage: null, description: EntertainmentConstants.DEFAULT_DESCRIPTION })}
-              />
-            </div>
+            {this.state.homeButton()}
             <div className="loading">
               Entertainment Modal Incomplete
             </div>

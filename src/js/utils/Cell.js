@@ -30,7 +30,7 @@ function createButton(cellInfo) {
  * @returns {React.Element}
  */
 function createInput(cellInfo) {
-  return <div>
+  return <div className="text-section">
     <div className="input-title">{cellInfo.title}</div>
     <input className={cellInfo.cellType} onKeyDown={cellInfo.callback} 
       style={cellInfo.styleOverloads} {...cellInfo.overloads} 
@@ -49,7 +49,7 @@ function createEmptyCell(cellInfo) {
     <div className={cellInfo.cellType} onChange={cellInfo.callback} 
       style={cellInfo.styleOverloads} {...cellInfo.overloads} 
     >
-      Empty Cell
+      {cellInfo.title}
     </div>
   );
 }
@@ -82,7 +82,9 @@ class Cell extends React.Component {
    * @inheritdoc
    */
   render() {
-    return this.renderFunction(this.state.loaded ? this.props : CellConstants.DEFAULT, this.state.eventListeners)
+    return this.renderFunction(
+      this.state.loaded ? this.props : CellConstants.DEFAULT, this.state.eventListeners
+    );
   }
 }
 

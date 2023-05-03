@@ -38,10 +38,10 @@ body {
 }
 
 .buttons {
+  float: center;
   flex-grow: 1;
-  max-width: 50%;
   height: 8%;
-  margin-left: 50%;
+  justify-self: end;
   display: flex;
   justify-content: right;
   align-items: center;

@@ -15,24 +15,26 @@ class Grid extends React.Component {
    * @inheritdoc
    */
   render() {
+    const getCellStyling = (cell) => ({
+      className: "grid-cell",
+      style: {
+        background: this.props.cellMap[cell] ?? GameConstants.COLORS.ACTIVE,
+        width: this.props.cellWidth,
+        height: this.props.cellHeight,
+      },
+    });
+
     return (
       <div className="grid" style={this.props.overloads}>
         {this.props.matrix.map((row, rowIndex) =>
           <div className="grid-row">
             {row.map((cell, index) =>
-              <button 
-                className="grid-cell" 
-                onClick={() => {
-                  if (typeof this.props.toggle === 'function') {
-                    this.props.toggle(rowIndex, index);
-                  }
-                }} 
-                style={{
-                  background: this.props.cellMap[cell] ?? GameConstants.COLORS.ACTIVE,
-                  width: this.props.cellWidth,
-                  height: this.props.cellHeight,
-                }}
-              ></button>
+              this.props.disabled
+                ? <div {...getCellStyling(cell)}></div>
+                : <button 
+                    onClick={() => this.props.onClick(rowIndex, index)}
+                    {...getCellStyling(cell)}
+                  ></button>
             )}
           </div>
         )}
@@ -51,6 +53,8 @@ Grid.defaultProps = {
   cellMap: GameConstants.DEFAULT_CELL_MAP,
   maxCellValue: 1,
   overloads: {},
+  onClick: () => console.log('Clicked'),
+  disabled: false,
 }
 
 export default Grid;

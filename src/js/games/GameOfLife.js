@@ -29,9 +29,10 @@ class GameOfLife extends React.Component {
       title: GameConstants.GAMES.GAME_OF_LIFE,
       description: GameConstants.GAME_OF_LIFE.DESCRIPTION,
       rules: GameConstants.GAME_OF_LIFE.RULE,
+      cellMap: GameConstants.GAME_OF_LIFE.CELL_MAP,
+      evaluationFunction: GameConstants.GAME_OF_LIFE.EVALUATE,
       automataIndex: 0,
 
-      evaluationFunction: this.evaluate.bind(this),
       stepFunction: this.convolveMatrix.bind(this),
       resetFunctions: [
         () => this.generateRandomGrid(this.state.gameSize, this.state.gameSize),
@@ -52,7 +53,6 @@ class GameOfLife extends React.Component {
 
     this.getIntervalButton = this.getIntervalButton.bind(this);
     this.generateRandomGrid = this.generateRandomGrid.bind(this);
-    this.evaluate = this.evaluate.bind(this);
     this.toggle = this.toggle.bind(this);
     this.changeSize = this.changeSize.bind(this);
 
@@ -85,8 +85,10 @@ class GameOfLife extends React.Component {
    * Simple helper function to step to the next convolution state
    */
   convolveMatrix() {
+    const { matrix, neighbourhood, evaluationFunction } = this.state;
+    const newMatrix = MathUtils.convolve(matrix, neighbourhood.kernel, evaluationFunction);
     this.setState({ 
-      matrix: MathUtils.convolve(this.state.matrix, this.state.neighbourhood.kernel, this.state.evaluationFunction)
+      matrix: newMatrix,
     });
   }
 
@@ -129,31 +131,13 @@ class GameOfLife extends React.Component {
   }
 
   /**
-   * An evaluation function to be called during convolution to determine appropriate next state
-   * @param {Integer} originalValue - The initial state of the cell
-   * @param {Integer} neighbourhood - The number of living neighbours in the neighbourhood
-   * @returns {Integer} Boolean integer denoting alive (1) or dead (0) cell
-   */
-  evaluate(originalValue, neighbourhood) {
-    // Dead cell becomes alive from 3+ alive neighbours
-    if (originalValue === 0 && neighbourhood === 3) {
-      return 1;
-    }
-    // Cell remains alive with 2-3 alive neighbours
-    if (originalValue === 1 && (neighbourhood < 2 || neighbourhood > 3)) {
-      return 0;
-    }
-    return originalValue;
-  }
-
-  /**
    * Toggles a selected cell from being active to becoming inactive
    * @param {Integer} rowIndex - The respective x-index of the cell being toggled
    * @param {Integer} Index - The respective y-index of the cells row being toggled
    */
   toggle(rowIndex, index) {
     let tempMatrix = this.state.matrix;
-    tempMatrix[rowIndex][index] = tempMatrix[rowIndex][index] === 1 ? 0 : 1;
+    tempMatrix[rowIndex][index] = (tempMatrix[rowIndex][index] + 1) % this.state.cellMap.length;
     this.setState({ matrix: tempMatrix });
   }
 
@@ -211,9 +195,10 @@ class GameOfLife extends React.Component {
       title: GameConstants.GAMES[key],
       description: GameConstants[key].DESCRIPTION,
       rules: GameConstants[key].RULE,
+      cellMap: GameConstants[key].CELL_MAP,
+      evaluationFunction: GameConstants[key].EVALUATE,
       automataIndex: newIndex,
 
-      evaluationFunction: this.evaluate,
       neighbourhood: GameConstants.NEIGHBOURHOODS.MOORES,
       neighbourhoodIndex: 0,
 
@@ -232,42 +217,46 @@ class GameOfLife extends React.Component {
   render() {
     const intervalButton = this.getIntervalButton();
 
-    return <div>
-      <div className="modal" style={{width: '30vw'}}>
+    return <div className="modal-shell-vertical" style={{ flexDirection: 'row' }}>
+      <div className="modal-vertical" style={{ width: '35%' }}>
         {/* Title and rule fields */}
-        <div className="title-field" style={{left: '5vw'}}>
+        {this.props.homeButton({ margin: '3%' })}
+        <div className="title-field">
           {this.state.title}
         </div>
-        <div className="rule-set">
-          {this.state.description}
+        <div className="text-section">
+          <div className="text-field">{this.state.description}</div>
+          <div className="text-field">Rules:</div>
+          {this.state.rules.map((rule, index) => 
+            <div className="rule-field">{`${index + 1}. ${rule}`}</div>
+          )}
         </div>
 
-        <div style={{position: 'relative', top: '5vh'}}>
-          <div className="rule-set">Rules:</div>
-          {this.state.rules.map((rule, index) => 
-            <div className="rule-set">{`${index + 1}. ${rule}`}</div>
-          )}
-
-          <div style={{position: 'relative', top: '15vh'}}>
-            <Cell 
-              cellType={CellConstants.BUTTONS.BACK}
-              callback={this.iterateAutomata.bind(this, -1)}
-            />
-            <Cell 
-              cellType={CellConstants.BUTTONS.FORWARD}
-              callback={this.iterateAutomata.bind(this, 1)}
-            />
-          </div>
+        {/* Page controls */}
+        <div className="buttons">
+          <Cell 
+            cellType={CellConstants.BUTTONS.BACK}
+            callback={this.iterateAutomata.bind(this, -1)}
+          />
+          <Cell
+            cellType={CellConstants.DEFAULT}
+            title={`Page ${this.state.automataIndex}`}
+          />
+          <Cell 
+            cellType={CellConstants.BUTTONS.FORWARD}
+            callback={this.iterateAutomata.bind(this, 1)}
+          />
         </div>
       </div>
 
-      <div className="modal" style={{width: '55vw', left: '40vw'}}>
+      <div className="modal-vertical" style={{ flexDirection: 'row', width: '60%' }}>
         {/* The main game grid */}
         <Grid 
           matrix={this.state.matrix}
-          toggle={this.toggle}
+          onClick={this.toggle}
           cellWidth={this.state.cellSize}
           cellHeight={this.state.cellSize}
+          cellMap={this.state.cellMap}
         />
 
         {/* Side bar components including game size, neighbourhood selection */}
@@ -279,41 +268,37 @@ class GameOfLife extends React.Component {
           />
 
           {/* Neighbourhood selection */}
-          <div style={{position: 'relative', left: '-1vw', top: '4vh'}}>
-            <div className="rule-set" style={{width: '10vw', left: '2.5vw', top: '-2vh', }}>
-              {this.state.neighbourhood.name}
-            </div>
+          <div className="text-section text-field">
+            {this.state.neighbourhood.name}
+          </div>
+          <div className="buttons">
             <Cell 
               cellType={CellConstants.BUTTONS.BACK} 
-              styleOverloads={{left: '-8.5vw', top: '3.5vh'}} 
               callback={this.iterateNeighbourhood.bind(this, -1)}
             />
             <Grid 
               matrix={this.state.neighbourhood.kernel}
-              overloads={{ left: '-17.5vw', top: '4vh'}}
+              disabled={true}
             />
             <Cell 
               cellType={CellConstants.BUTTONS.FORWARD}
-              styleOverloads={{left: '3.5vw', top: '-3.5vh'}} 
               callback={this.iterateNeighbourhood.bind(this, 1)}
             />
           </div>
 
           {/* Options buttons including reset, step, and start/stop */}
-          <div style={{position: 'relative', left: '-1vw', top: '25vh'}}>
-            {this.state.options.map((option) =>
-              <Cell 
-                cellType={option.type}
-                title={option.title}
-                callback={option.callback}
-              />
-            )}
+          {this.state.options.map((option) =>
             <Cell 
-              cellType={intervalButton.type}
-              title={intervalButton.title}
-              callback={intervalButton.callback}
+              cellType={option.type}
+              title={option.title}
+              callback={option.callback}
             />
-          </div>
+          )}
+          <Cell 
+            cellType={intervalButton.type}
+            title={intervalButton.title}
+            callback={intervalButton.callback}
+          />
         </div>
       </div>
     </div>;  
@@ -321,6 +306,7 @@ class GameOfLife extends React.Component {
 }
 
 GameOfLife.defaultProps = {
+  homeButton: () => {},
 }
 
 export default GameOfLife;
