@@ -57,15 +57,23 @@ class Resume extends React.Component {
     return (
       <div className="modal">
         <div className="title-section">
-          <Cell 
-            cellType={CellConstants.BUTTONS.BACK} 
-            callback={this.cycleSection.bind(this, -1)}
-          />
+          <div className="buttons" style={{ justifyContent: 'revert' }}>
+            <Cell 
+              cellType={CellConstants.BUTTONS.BACK} 
+              callback={this.cycleSection.bind(this, -1)}
+            />
+            <div className="text-field">Prev</div>
+          </div>
+
           <div className="title-field">{this.state.title}</div>
-          <Cell 
-            cellType={CellConstants.BUTTONS.FORWARD}
-            callback={this.cycleSection.bind(this, 1)}
-          />
+          
+          <div className="buttons">
+            <div className="text-field">Next</div>
+            <Cell 
+              cellType={CellConstants.BUTTONS.FORWARD} 
+              callback={this.cycleSection.bind(this, 1)}
+            />
+          </div>
         </div>
         {this.state.sectionComponent}
       </div>
