@@ -7,6 +7,7 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+
 import Navigator from './js/navigation/Navigator';
 import Entertainment from './js/pages/Entertainment';
 import Resume from './js/pages/Resume';

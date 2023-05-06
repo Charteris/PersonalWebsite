@@ -131,10 +131,12 @@ body {
 .link {
   color: var(--active-border-color);
   margin: 5%;
+  text-align: center;
 }
 
 .link:hover {
   color: var(--text-color);
+  font-weight: bold;
   scale: 120%;
 }
 
