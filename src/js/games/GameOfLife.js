@@ -149,7 +149,7 @@ class GameOfLife extends React.Component {
     if (event.key === 'Enter') {
       const newSize = Number(event.target.value);
 
-      if (Number.isNaN(newSize) || newSize > GameConstants.DEFAULT_MATRIX_SIZE) {
+      if (Number.isNaN(newSize)) {
         console.warn('Invalid Input...');
       } else {
         const newCellSize = Number((GameConstants.DEFAULT_MATRIX_SIZE / newSize).toFixed(3));
