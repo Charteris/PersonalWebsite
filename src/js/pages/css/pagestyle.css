@@ -4,11 +4,11 @@
 
 body {
   --black: #000000;
-  --background-color: #17181B;
-  --border-color: #0E1013;
-  --text-color: #80868B;
+  --background-color: #17181b;
+  --border-color: #0e1013;
+  --text-color: #80868b;
   --cell-back-color: #202124;
-  --active-border-color: #4C4F51;
+  --active-border-color: #4c4f51;
   color: var(--text-color);
 }
 
@@ -18,18 +18,18 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--background-color); 
+  background: var(--background-color);
   width: 50%;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--border-color); 
+  background: var(--border-color);
   width: 5px;
   border-radius: 50px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--text-color); 
+  background: var(--text-color);
 }
 
 /* Title  - Resume */

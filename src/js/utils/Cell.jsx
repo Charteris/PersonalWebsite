@@ -1,23 +1,28 @@
-/** 
- * General cell object to be called for 
- * 
+/**
+ * General cell object to be called for
+ *
  * @author Lachlan Charteris
  * @module js/utils/Cell
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import CellConstants from '../constants/CellConstants';
 import './css/cell.css';
 
 /**
  * Returns a new button object with the relevant information
- * @param {Object} cellInfo - relevant display and callback information for the button 
+ * @param {Object} cellInfo - relevant display and callback information for the button
  * @returns {React.Element}
  */
 function createButton(cellInfo) {
   return (
-    <button className={cellInfo.cellType} onMouseUp={cellInfo.callback} 
-      style={cellInfo.styleOverloads} {...cellInfo.overloads} 
+    <button
+      className={cellInfo.cellType}
+      onMouseUp={cellInfo.callback}
+      style={cellInfo.styleOverloads}
+      {...cellInfo.overloads}
     >
       {cellInfo.title}
     </button>
@@ -30,13 +35,17 @@ function createButton(cellInfo) {
  * @returns {React.Element}
  */
 function createInput(cellInfo) {
-  return <div className="text-section">
-    <div className="input-title">{cellInfo.title}</div>
-    <input className={cellInfo.cellType} onKeyDown={cellInfo.callback} 
-      style={cellInfo.styleOverloads} {...cellInfo.overloads} 
-    >
-    </input>
-  </div>;
+  return (
+    <div className="text-section">
+      <div className="input-title">{cellInfo.title}</div>
+      <input
+        className={cellInfo.cellType}
+        onKeyDown={cellInfo.callback}
+        style={cellInfo.styleOverloads}
+        {...cellInfo.overloads}
+      />
+    </div>
+  );
 }
 
 /**
@@ -46,8 +55,11 @@ function createInput(cellInfo) {
  */
 function createEmptyCell(cellInfo) {
   return (
-    <div className={cellInfo.cellType} onChange={cellInfo.callback} 
-      style={cellInfo.styleOverloads} {...cellInfo.overloads} 
+    <div
+      className={cellInfo.cellType}
+      onChange={cellInfo.callback}
+      style={cellInfo.styleOverloads}
+      {...cellInfo.overloads}
     >
       {cellInfo.title}
     </div>
@@ -60,7 +72,7 @@ class Cell extends React.Component {
    */
   constructor(props) {
     super(props);
-    this.state = { loaded: false }
+    this.state = { loaded: false };
     this.renderFunction = createEmptyCell;
   }
 
@@ -71,7 +83,9 @@ class Cell extends React.Component {
     // Set appropriate render function
     if (Object.values(CellConstants.BUTTONS).includes(this.props.cellType)) {
       this.renderFunction = createButton;
-    } else if (Object.values(CellConstants.INPUTS).includes(this.props.cellType)) {
+    } else if (
+      Object.values(CellConstants.INPUTS).includes(this.props.cellType)
+    ) {
       this.renderFunction = createInput;
     }
 
@@ -83,10 +97,19 @@ class Cell extends React.Component {
    */
   render() {
     return this.renderFunction(
-      this.state.loaded ? this.props : CellConstants.DEFAULT, this.state.eventListeners
+      this.state.loaded ? this.props : CellConstants.DEFAULT,
+      this.state.eventListeners,
     );
   }
 }
+
+Cell.propTypes = {
+  cellType: PropTypes.string,
+  title: PropTypes.string,
+  callback: PropTypes.func,
+  stateInfo: PropTypes.object,
+  mountingProps: PropTypes.object,
+};
 
 Cell.defaultProps = {
   cellType: CellConstants.DEFAULT,
@@ -94,6 +117,6 @@ Cell.defaultProps = {
   callback: () => {},
   stateInfo: {},
   mountingProps: {},
-}
+};
 
 export default Cell;

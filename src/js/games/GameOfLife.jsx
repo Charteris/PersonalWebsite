@@ -1,11 +1,12 @@
-/** 
+/**
  * View class to display the GameOfLife information
- * 
+ *
  * @author Lachlan Charteris
  * @module js/games/GameOfLife
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import GameConstants from '../constants/GameConstants';
 import CellConstants from '../constants/CellConstants';
@@ -36,7 +37,10 @@ class GameOfLife extends React.Component {
       stepFunction: this.convolveMatrix.bind(this),
       resetFunctions: [
         () => this.generateRandomGrid(this.state.gameSize, this.state.gameSize),
-        () => Array(this.state.gameSize).fill(0).map(() => Array(this.state.gameSize).fill(0))
+        () =>
+          Array(this.state.gameSize)
+            .fill(0)
+            .map(() => Array(this.state.gameSize).fill(0)),
       ],
 
       neighbourhood: GameConstants.NEIGHBOURHOODS.MOORES,
@@ -64,20 +68,24 @@ class GameOfLife extends React.Component {
    * @inheritdoc
    */
   componentDidMount() {
-    this.setState({ 
+    this.setState({
       loaded: true,
       options: [
-        { 
-          title: 'Reset', 
-          callback: () => this.setState({ matrix: this.state.resetFunctions[this.state.neighbourhoodIndex]() }), 
-          type: CellConstants.BUTTONS.DEFAULT 
+        {
+          title: 'Reset',
+          callback: () =>
+            this.setState({
+              matrix:
+                this.state.resetFunctions[this.state.neighbourhoodIndex](),
+            }),
+          type: CellConstants.BUTTONS.DEFAULT,
         },
-        { 
-          title: 'Step', 
-          callback: this.state.stepFunction, 
-          type: CellConstants.BUTTONS.DEFAULT 
+        {
+          title: 'Step',
+          callback: this.state.stepFunction,
+          type: CellConstants.BUTTONS.DEFAULT,
         },
-      ]
+      ],
     });
   }
 
@@ -86,8 +94,12 @@ class GameOfLife extends React.Component {
    */
   convolveMatrix() {
     const { matrix, neighbourhood, evaluationFunction } = this.state;
-    const newMatrix = MathUtils.convolve(matrix, neighbourhood.kernel, evaluationFunction);
-    this.setState({ 
+    const newMatrix = MathUtils.convolve(
+      matrix,
+      neighbourhood.kernel,
+      evaluationFunction,
+    );
+    this.setState({
       matrix: newMatrix,
     });
   }
@@ -98,22 +110,26 @@ class GameOfLife extends React.Component {
    */
   getIntervalButton() {
     if (this.state.intervalId === null) {
-      return { 
-        title: 'Start', 
-        callback: () => this.setState({ intervalId: setInterval(
-          this.state.stepFunction, this.state.stepSpeed
-        ) }),
+      return {
+        title: 'Start',
+        callback: () =>
+          this.setState({
+            intervalId: setInterval(
+              this.state.stepFunction,
+              this.state.stepSpeed,
+            ),
+          }),
         type: CellConstants.BUTTONS.DEFAULT,
       };
     }
 
-    return { 
-      title: 'Stop', 
+    return {
+      title: 'Stop',
       callback: () => {
         clearInterval(this.state.intervalId);
         this.setState({ intervalId: null });
       },
-      type: CellConstants.BUTTONS.DEFAULT ,
+      type: CellConstants.BUTTONS.DEFAULT,
     };
   }
 
@@ -125,9 +141,13 @@ class GameOfLife extends React.Component {
    * @returns {Array} The resultant grid
    */
   generateRandomGrid(width, height, maxValue = 1) {
-    return Array(height).fill(0).map(() => 
-      Array(width).fill(0).map(() => Math.floor(Math.random() * (maxValue + 1)))
-    );
+    return Array(height)
+      .fill(0)
+      .map(() =>
+        Array(width)
+          .fill(0)
+          .map(() => Math.floor(Math.random() * (maxValue + 1))),
+      );
   }
 
   /**
@@ -137,7 +157,8 @@ class GameOfLife extends React.Component {
    */
   toggle(rowIndex, index) {
     let tempMatrix = this.state.matrix;
-    tempMatrix[rowIndex][index] = (tempMatrix[rowIndex][index] + 1) % this.state.cellMap.length;
+    tempMatrix[rowIndex][index] =
+      (tempMatrix[rowIndex][index] + 1) % this.state.cellMap.length;
     this.setState({ matrix: tempMatrix });
   }
 
@@ -152,8 +173,10 @@ class GameOfLife extends React.Component {
       if (Number.isNaN(newSize)) {
         console.warn('Invalid Input...');
       } else {
-        const newCellSize = Number((GameConstants.DEFAULT_MATRIX_SIZE / newSize).toFixed(3));
-        this.setState({ 
+        const newCellSize = Number(
+          (GameConstants.DEFAULT_MATRIX_SIZE / newSize).toFixed(3),
+        );
+        this.setState({
           matrix: this.generateRandomGrid(newSize, newSize),
           gameSize: newSize,
           cellSize: `${newCellSize}vw`,
@@ -174,8 +197,12 @@ class GameOfLife extends React.Component {
       newIndex = 0;
     }
 
-    const newNeighbourhood = GameConstants.NEIGHBOURHOODS[ GameConstants.NEIGHBOURHOOD_KEYS[newIndex] ];
-    this.setState({ neighbourhoodIndex: newIndex, neighbourhood: newNeighbourhood });
+    const newNeighbourhood =
+      GameConstants.NEIGHBOURHOODS[GameConstants.NEIGHBOURHOOD_KEYS[newIndex]];
+    this.setState({
+      neighbourhoodIndex: newIndex,
+      neighbourhood: newNeighbourhood,
+    });
   }
 
   /**
@@ -217,96 +244,98 @@ class GameOfLife extends React.Component {
   render() {
     const intervalButton = this.getIntervalButton();
 
-    return <div className="modal-shell-vertical" style={{ flexDirection: 'row' }}>
-      <div className="modal-vertical" style={{ width: '35%' }}>
-        {/* Title and rule fields */}
-        {this.props.homeButton({ margin: '3%' })}
-        <div className="title-field">
-          {this.state.title}
-        </div>
-        <div className="text-section">
-          <div className="text-field">{this.state.description}</div>
-          <div className="text-field">Rules:</div>
-          {this.state.rules.map((rule, index) => 
-            <div className="rule-field">{`${index + 1}. ${rule}`}</div>
-          )}
-        </div>
-
-        {/* Page controls */}
-        <div className="buttons">
-          <Cell 
-            cellType={CellConstants.BUTTONS.BACK}
-            callback={this.iterateAutomata.bind(this, -1)}
-          />
-          <Cell
-            cellType={CellConstants.DEFAULT}
-            title={`Page ${this.state.automataIndex}`}
-          />
-          <Cell 
-            cellType={CellConstants.BUTTONS.FORWARD}
-            callback={this.iterateAutomata.bind(this, 1)}
-          />
-        </div>
-      </div>
-
-      <div className="modal-vertical" style={{ flexDirection: 'row', width: '60%' }}>
-        {/* The main game grid */}
-        <Grid 
-          matrix={this.state.matrix}
-          onClick={this.toggle}
-          cellWidth={this.state.cellSize}
-          cellHeight={this.state.cellSize}
-          cellMap={this.state.cellMap}
-        />
-
-        {/* Side bar components including game size, neighbourhood selection */}
-        <div className="sidebar">
-          <Cell 
-            cellType={CellConstants.INPUTS.DEFAULT}
-            title={'Change Board Size:'}
-            callback={this.changeSize}
-          />
-
-          {/* Neighbourhood selection */}
-          <div className="text-section text-field">
-            {this.state.neighbourhood.name}
+    return (
+      <div className="modal-shell-vertical" style={{ flexDirection: 'row' }}>
+        <div className="modal-vertical" style={{ width: '35%' }}>
+          {/* Title and rule fields */}
+          {this.props.homeButton({ margin: '3%' })}
+          <div className="title-field">{this.state.title}</div>
+          <div className="text-section">
+            <div className="text-field">{this.state.description}</div>
+            <div className="text-field">Rules:</div>
+            {this.state.rules.map((rule, index) => (
+              <div className="rule-field" key={index}>{`${
+                index + 1
+              }. ${rule}`}</div>
+            ))}
           </div>
+
+          {/* Page controls */}
           <div className="buttons">
-            <Cell 
-              cellType={CellConstants.BUTTONS.BACK} 
-              callback={this.iterateNeighbourhood.bind(this, -1)}
+            <Cell
+              cellType={CellConstants.BUTTONS.BACK}
+              callback={this.iterateAutomata.bind(this, -1)}
             />
-            <Grid 
-              matrix={this.state.neighbourhood.kernel}
-              disabled={true}
+            <Cell
+              cellType={CellConstants.DEFAULT}
+              title={`Page ${this.state.automataIndex}`}
             />
-            <Cell 
+            <Cell
               cellType={CellConstants.BUTTONS.FORWARD}
-              callback={this.iterateNeighbourhood.bind(this, 1)}
+              callback={this.iterateAutomata.bind(this, 1)}
             />
           </div>
+        </div>
 
-          {/* Options buttons including reset, step, and start/stop */}
-          {this.state.options.map((option) =>
-            <Cell 
-              cellType={option.type}
-              title={option.title}
-              callback={option.callback}
-            />
-          )}
-          <Cell 
-            cellType={intervalButton.type}
-            title={intervalButton.title}
-            callback={intervalButton.callback}
+        <div
+          className="modal-vertical"
+          style={{ flexDirection: 'row', width: '60%' }}
+        >
+          {/* The main game grid */}
+          <Grid
+            matrix={this.state.matrix}
+            onClick={this.toggle}
+            cellWidth={this.state.cellSize}
+            cellHeight={this.state.cellSize}
+            cellMap={this.state.cellMap}
           />
+
+          {/* Side bar components including game size, neighbourhood selection */}
+          <div className="sidebar">
+            <Cell
+              cellType={CellConstants.INPUTS.DEFAULT}
+              title={'Change Board Size:'}
+              callback={this.changeSize}
+            />
+
+            {/* Neighbourhood selection */}
+            <div className="text-section text-field">
+              {this.state.neighbourhood.name}
+            </div>
+            <div className="buttons">
+              <Cell
+                cellType={CellConstants.BUTTONS.BACK}
+                callback={this.iterateNeighbourhood.bind(this, -1)}
+              />
+              <Grid matrix={this.state.neighbourhood.kernel} disabled={true} />
+              <Cell
+                cellType={CellConstants.BUTTONS.FORWARD}
+                callback={this.iterateNeighbourhood.bind(this, 1)}
+              />
+            </div>
+
+            {/* Options buttons including reset, step, and start/stop */}
+            {this.state.options.map((option) => (
+              <Cell
+                cellType={option.type}
+                title={option.title}
+                callback={option.callback}
+              />
+            ))}
+            <Cell
+              cellType={intervalButton.type}
+              title={intervalButton.title}
+              callback={intervalButton.callback}
+            />
+          </div>
         </div>
       </div>
-    </div>;  
+    );
   }
 }
 
-GameOfLife.defaultProps = {
-  homeButton: () => {},
-}
+GameOfLife.propTypes = {
+  homeButton: PropTypes.func.isRequired,
+};
 
 export default GameOfLife;

@@ -1,6 +1,6 @@
-/** 
+/**
  * Contains the relevant constants to define different cells
- * 
+ *
  * @author Lachlan Charteris
  * @module js/Utils/GameConstants
  */
@@ -62,7 +62,7 @@ GameConstants.DEFAULT_CELL_MAP = [
  * An evaluation function to be called during convolution to determine appropriate next state
  * @param {Integer} originalValue - The initial state of the cell
  * @param {Integer} neighbourhood - The number of living neighbours in the neighbourhood
- * @returns {Integer} Boolean integer denoting alive (1) or dead (0) cell
+ * @return {Integer} Boolean integer denoting alive (1) or dead (0) cell
  */
 function evaluateGameOfLife(originalValue, neighbourhood) {
   // Dead cell becomes alive from 3+ alive neighbours
@@ -77,11 +77,12 @@ function evaluateGameOfLife(originalValue, neighbourhood) {
 }
 
 GameConstants.GAME_OF_LIFE = {
-  DESCRIPTION: "John Conway's 'Game Of Life' is an intricate cellular automata, depicting the formation and cycle of life across convolutional states which are governed by the three simple rules outlined below. It is a Turing complete simulation with a broad range of 'entities', some of which are even capable of motion. More information can be found through the wikipedia page. Note this is typically implemented with Moore's neighbourhood.",
+  DESCRIPTION:
+    "John Conway's 'Game Of Life' is an intricate cellular automata, depicting the formation and cycle of life across convolutional states which are governed by the three simple rules outlined below. It is a Turing complete simulation with a broad range of 'entities', some of which are even capable of motion. More information can be found through the wikipedia page. Note this is typically implemented with Moore's neighbourhood.",
   RULE: [
-    "Any live cell with two or three live neighbours survives.",
-    "Any dead cell with three live neighbours becomes a live cell.",
-    "All other live cells die in the next generation. Similarly, all other dead cells stay dead.",
+    'Any live cell with two or three live neighbours survives.',
+    'Any dead cell with three live neighbours becomes a live cell.',
+    'All other live cells die in the next generation. Similarly, all other dead cells stay dead.',
   ],
   CELL_MAP: GameConstants.DEFAULT_CELL_MAP,
   EVALUATE: evaluateGameOfLife,
@@ -92,7 +93,7 @@ GameConstants.GAME_OF_LIFE = {
  * An evaluation function to be called during convolution to determine appropriate next state
  * @param {Integer} originalValue - The initial state of the cell
  * @param {Integer} neighbourhood - The number of living neighbours in the neighbourhood
- * @returns {Integer} Boolean integer denoting alive (1) or dead (0) cell
+ * @return {Integer} Boolean integer denoting alive (1) or dead (0) cell
  */
 function evaluateWireWorld(originalValue, neighbourhood) {
   // Conductor only becomes head if one or two neighboring cells are heads
@@ -107,12 +108,13 @@ function evaluateWireWorld(originalValue, neighbourhood) {
 }
 
 GameConstants.WIRE_WORLD = {
-  DESCRIPTION: "*** CURRENTLY BROKEN *** Brian Silvermans Wire World is a 4-state cellular automata, typically implemented with Moore's neigbourhood. Compared to regular cellular-automata, this isolates environmental changes to 'conductors' in order to simulate the traditional interpretation of electron flow.",
+  DESCRIPTION:
+    "*** CURRENTLY BROKEN *** Brian Silvermans Wire World is a 4-state cellular automata, typically implemented with Moore's neigbourhood. Compared to regular cellular-automata, this isolates environmental changes to 'conductors' in order to simulate the traditional interpretation of electron flow.",
   RULE: [
-    "empty → empty",
-    "electron head → electron tail",
-    "electron tail → conductor",
-    "conductor → electron head if exactly one or two of the neighboring cells are electron heads, otherwise remains conductor.",
+    'empty → empty',
+    'electron head → electron tail',
+    'electron tail → conductor',
+    'conductor → electron head if exactly one or two of the neighboring cells are electron heads, otherwise remains conductor.',
   ],
   CELL_MAP: [
     GameConstants.COLORS.INACTIVE,

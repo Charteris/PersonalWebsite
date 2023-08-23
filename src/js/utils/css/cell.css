@@ -3,11 +3,11 @@
  */
 
 :root {
-  --background-color: #17181B;
+  --background-color: #17181b;
   --cell-back-color: #202124;
-  --border-color: #0E1013;
-  --active-border-color: #4C4F51;
-  --text-color: #80868B;
+  --border-color: #0e1013;
+  --active-border-color: #4c4f51;
+  --text-color: #80868b;
 }
 
 .generic-object {
@@ -72,15 +72,12 @@
   position: relative;
   margin: 0.75vw;
   background: transparent;
-	width: 1vw;
+  width: 1vw;
   height: 1vw;
-	border: 0.6vw solid;
-	border-color: 
-    transparent
-		var(--active-border-color)
-		var(--active-border-color)
-		transparent;
-	transform: rotate(-45deg);
+  border: 0.6vw solid;
+  border-color: transparent var(--active-border-color)
+    var(--active-border-color) transparent;
+  transform: rotate(-45deg);
 }
 
 .button-left-arrow:hover {
@@ -99,16 +96,13 @@
   position: relative;
   margin: 0.75vw;
   background: transparent;
-	width: 1vw;
+  width: 1vw;
   height: 1vw;
 
-	border: 0.6vw solid;
-	border-color: 
-    transparent
-		transparent
-		var(--active-border-color)
-		var(--active-border-color);
-	transform: rotate(45deg);
+  border: 0.6vw solid;
+  border-color: transparent transparent var(--active-border-color)
+    var(--active-border-color);
+  transform: rotate(45deg);
 }
 
 .button-right-arrow:hover {

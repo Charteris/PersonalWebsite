@@ -1,6 +1,6 @@
-/** 
+/**
  * Contains the relevant constants to define different cells
- * 
+ *
  * @author Lachlan Charteris
  * @module js/Utils/ResumeConstants
  */
@@ -49,7 +49,7 @@ const ResumeConstants = {
         'Ultimately, this project was a success and, whilst not all the features were refined to meet the initial design - primarily due to time constraints - the elevator still functioned. This was an engaging task which pushed me to learn a few mechanical concepts such as gear ratios and a simple pulley system in order to complete its physical implementation. These additional requirements did result in some hiccups during development which prolonged the software implementation, however, I was fortunate enough to be quite proficient in programming allowing me to complete it in mere days. Unfortunately, this did mean that extensive modifications and refinements to the circuit could not even be considered due to time constraints.',
         'Through the development of this project, I was pleased to learn my ability to arm myself with the necessary knowledge required to drive this project to completion. However, this also heavily accentuated the need for thorough pre-planning before the proposal of such a project as the physical requirements were not obvious until development occurred. Of course, this is not always avoidable and mostly acknowledge in retrospect. Nonetheless, this resulted in the majority of time spent building the physical system, rather than focussing on the embedded system as the task required.',
       ],
-      Images: [ ElevatorSketch, ElevatorCircuit ],
+      Images: [ElevatorSketch, ElevatorCircuit],
     },
     {
       Title: 'Rush Hour',
@@ -60,13 +60,13 @@ const ResumeConstants = {
         'The addition of the GUI, whilst not providing any performance or operational benefit, did make for a much nicer application in the end. Furthermore, whilst most implementations only allowed for each algorithm to be investigated independently, this provided a direct comparison between each algorithms performance, as well as how the end result differed considering that most iterative problems can have multiple solutions. Unfortunately, however, there was a caveat in the completion of the task itself. Due to time constraints between being taught the topic and implementing the heuristic approach - the AStar algorithm - the heuristic used within the algorithm was not refined enough to find a solution in all cases. Whilst this was mostly due to the abundance of conflicting projects conducted at the time, it did highlight the fact that rather than implementing the GUI, I could have instead focussed my time on self-educating the topics and implementing them earlier than intended.',
       ],
       Link: 'https://github.com/Charteris/RushHour',
-      Images: [ RushHourUnsolved, RushHourSolved ],
+      Images: [RushHourUnsolved, RushHourSolved],
     },
   ],
-}
+};
 
 ResumeConstants.TITLES = [ResumeConstants.DEFAULT_TITLE].concat(
-  Object.values(ResumeConstants.ARTEFACTS).map((artefact) => artefact.Title)
+  Object.values(ResumeConstants.ARTEFACTS).map((artefact) => artefact.Title),
 );
 
 export default ResumeConstants;

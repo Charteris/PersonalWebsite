@@ -1,6 +1,6 @@
-/** 
+/**
  * View class to display the Entertainment information
- * 
+ *
  * @author Lachlan Charteris
  * @module js/pages/Entertainment
  */
@@ -27,17 +27,24 @@ class Entertainment extends React.Component {
       fields: EntertainmentConstants.ENTERTAINMENT_LIST,
       entertainmentPage: null,
       description: EntertainmentConstants.DEFAULT_DESCRIPTION,
-      homeButton: (style = {}) =>
+      homeButton: (style = {}) => (
         <div className="home-button" style={style}>
-          <Cell 
+          <Cell
             cellType={CellConstants.BUTTONS.BACK}
-            callback={() => this.setState({ entertainmentPage: null, description: EntertainmentConstants.DEFAULT_DESCRIPTION })}
+            callback={() =>
+              this.setState({
+                entertainmentPage: null,
+                description: EntertainmentConstants.DEFAULT_DESCRIPTION,
+              })
+            }
           />
-        </div>,
-    }
+        </div>
+      ),
+    };
 
     this.getEntertainmentModal = this.getEntertainmentModal.bind(this);
-    this.generateEntertainmentLists = this.generateEntertainmentLists.bind(this);
+    this.generateEntertainmentLists =
+      this.generateEntertainmentLists.bind(this);
   }
 
   /**
@@ -59,12 +66,10 @@ class Entertainment extends React.Component {
         return (
           <div className="modal">
             {this.state.homeButton()}
-            <div className="loading">
-              Entertainment Modal Incomplete
-            </div>
+            <div className="loading">Entertainment Modal Incomplete</div>
           </div>
         );
-    };
+    }
   }
 
   /**
@@ -72,34 +77,41 @@ class Entertainment extends React.Component {
    * @returns {React.Element}
    */
   generateEntertainmentLists() {
-    return <div className="modal-shell-vertical">
-      <div className="modal-shell-horizontal">
-        {this.state.fields.map((field, index) => 
-          <div className="modal-vertical">
-            <div className="title-field">{field.title}</div>
+    return (
+      <div className="modal-shell-vertical">
+        <div className="modal-shell-horizontal">
+          {this.state.fields.map((field) => (
+            <div className="modal-vertical">
+              <div className="title-field">{field.title}</div>
               <div className="button-field">
-                {field.objects.map((subField) => 
+                {field.objects.map((subField) => (
                   <Cell
                     cellType={CellConstants.BUTTONS.DEFAULT}
                     title={subField.name}
-                    callback={() => this.setState({ entertainmentPage: subField.key })}
+                    callback={() =>
+                      this.setState({ entertainmentPage: subField.key })
+                    }
                     overloads={{
-                      onMouseEnter: () => this.setState({ description: subField.description }),
-                      onMouseLeave: () => this.setState({ description: EntertainmentConstants.DEFAULT_DESCRIPTION }),
+                      onMouseEnter: () =>
+                        this.setState({ description: subField.description }),
+                      onMouseLeave: () =>
+                        this.setState({
+                          description:
+                            EntertainmentConstants.DEFAULT_DESCRIPTION,
+                        }),
                     }}
-                    styleOverloads={{id: subField.key}}
+                    styleOverloads={{ id: subField.key }}
                   />
-                )}
+                ))}
               </div>
-          </div>
-        )}
-      </div>
-      <div className="modal-horizontal">
-        <div className="description-field">
-          {this.state.description}
+            </div>
+          ))}
+        </div>
+        <div className="modal-horizontal">
+          <div className="description-field">{this.state.description}</div>
         </div>
       </div>
-    </div>
+    );
   }
 
   /**
@@ -107,22 +119,13 @@ class Entertainment extends React.Component {
    */
   render() {
     if (!this.state.loaded) {
-      return (
-        <div className="modal loading">
-          Loading Modal...
-        </div>
-      );
+      return <div className="modal loading">Loading Modal...</div>;
     }
 
-    return (
-      this.state.entertainmentPage === null ?
-        this.generateEntertainmentLists() : 
-        this.getEntertainmentModal()
-    )
+    return this.state.entertainmentPage === null
+      ? this.generateEntertainmentLists()
+      : this.getEntertainmentModal();
   }
-}
-
-Entertainment.defaultProps = {
 }
 
 export default Entertainment;

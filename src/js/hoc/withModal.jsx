@@ -1,6 +1,6 @@
-/** 
+/**
  * HOC to provide loading and modal display
- * 
+ *
  * @author Lachlan Charteris
  * @module js/hoc/withModal
  */
@@ -11,7 +11,7 @@ import '../pages/css/pagestyle.css';
 const DISPLAY_MESSAGES = {
   loading: 'Loading Modal',
   error: 'An Error Has Occurred!',
-}
+};
 
 /**
  * Provides loading and modal background for component
@@ -25,7 +25,7 @@ const withModal = (WrappedComponent, modalStyle = {}) => {
      */
     constructor(props) {
       super(props);
-      this.state = { 
+      this.state = {
         isLoaded: false,
         isError: false,
         displayedMessage: DISPLAY_MESSAGES.loading,
@@ -45,22 +45,22 @@ const withModal = (WrappedComponent, modalStyle = {}) => {
     render() {
       return (
         <div className="modal" style={modalStyle}>
-          {
-            this.state.isLoaded && !this.state.isError
-              ? <WrappedComponent {...this.props} />
-              : <div className="loading">{this.state.displayedMessage}</div>
-          }
+          {this.state.isLoaded && !this.state.isError ? (
+            <WrappedComponent {...this.props} />
+          ) : (
+            <div className="loading">{this.state.displayedMessage}</div>
+          )}
         </div>
-      )
+      );
     }
 
     componentDidCatch() {
-      this.setState({ 
+      this.setState({
         isError: true,
         displayedMessage: DISPLAY_MESSAGES.error,
       });
     }
-  }
-}
+  };
+};
 
 export default withModal;

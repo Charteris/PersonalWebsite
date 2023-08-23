@@ -1,6 +1,6 @@
-/** 
+/**
  * Main application component to control all renderable components
- * 
+ *
  * @author Lachlan Charteris
  * @module index
  */
@@ -33,16 +33,17 @@ class App extends React.Component {
       pageTitle: GlobalConstants.DEFAULT_PAGE_TITLE,
 
       // Provide button information and callbacks for the Navigator
-      buttons: Object.entries(GlobalConstants.PAGE_TITLES).map(([field, value]) => {
-        return { 
-          title: value, 
-          callback: () => this.setState({ 
-            currentPage: GlobalConstants.PAGE_IDS[field],
-            pageTitle: value,
-          }), 
+      buttons: Object.entries(GlobalConstants.PAGE_TITLES).map(
+        ([field, value]) => ({
+          title: value,
+          callback: () =>
+            this.setState({
+              currentPage: GlobalConstants.PAGE_IDS[field],
+              pageTitle: value,
+            }),
           type: CellConstants.BUTTONS.HEADER,
-        };
-      }),
+        }),
+      ),
     };
 
     this.getViewModal = this.getViewModal.bind(this);
@@ -65,25 +66,21 @@ class App extends React.Component {
 
   /**
    * A function to display the relevant page
-   * @returns {React.ELement} 
+   * @returns {React.ELement}
    */
   getViewModal() {
     switch (this.state.currentPage) {
       case GlobalConstants.PAGE_IDS.PORTFOLIO:
-        return ( <Resume /> );
+        return <Resume />;
       case GlobalConstants.PAGE_IDS.ENTERTAINMENT:
-        return ( <Entertainment setSubtitle={this.setSubtitle} /> );
+        return <Entertainment setSubtitle={this.setSubtitle} />;
       // case GlobalConstants.PAGE_IDS.COMMUNICATION:
-        // return (
+      // return (
 
-        // );
+      // );
       default:
-        return (
-          <div className="modal loading">
-            Page Currently Unavailable
-          </div>
-        );
-    };
+        return <div className="modal loading">Page Currently Unavailable</div>;
+    }
   }
 
   /**
@@ -91,25 +88,25 @@ class App extends React.Component {
    * @return {React.Component} The rendered component
    */
   render() {
-    return (
-      this.state.loaded ? 
+    return this.state.loaded ? (
       <div className="background">
-        <script src="https://unpkg.com/feather-icons"></script>
+        <script src="https://unpkg.com/feather-icons" />
         <video className="background-video" autoPlay loop muted>
-          <source src={BackgroundVideo} type='video/mp4' />
+          <source src={BackgroundVideo} type="video/mp4" />
         </video>
         {this.getViewModal()}
-        <Navigator 
+        <Navigator
           title={this.state.title}
           subtitle={this.state.pageTitle}
           buttons={this.state.buttons}
         />
       </div>
-      : <div> Loading... </div>
+    ) : (
+      <div> Loading... </div>
     );
   }
 }
 
 // Define as root component for rendering
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(<App />);

@@ -1,6 +1,6 @@
-/** 
+/**
  * Contains the relevant constants to define different cells
- * 
+ *
  * @author Lachlan Charteris
  * @module js/Utils/CellConstants
  */
@@ -19,7 +19,7 @@ const CellConstants = {
   INPUTS: {
     DEFAULT: 'input-object',
   },
-  
+
   COLORS: {
     BACKGROUND: '#17181B',
     BORDER: '#0E1013',
@@ -27,6 +27,6 @@ const CellConstants = {
     TEXT: '#80868B',
     CELL: '#202124',
   },
-}
+};
 
 export default CellConstants;

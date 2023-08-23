@@ -13,11 +13,16 @@ html {
 }
 
 body {
-  --background-color: #17181B;
-  --border-color: #0E1013;
-  --text-color: #80868B;
+  --background-color: #17181b;
+  --border-color: #0e1013;
+  --text-color: #80868b;
 
-  font: 80% "Century Gothic", Futura, Helvetica, Arial, sans-serif;
+  font:
+    80% "Century Gothic",
+    Futura,
+    Helvetica,
+    Arial,
+    sans-serif;
   color: var(--text-color);
   background: #000000;
   overflow-x: hidden;
